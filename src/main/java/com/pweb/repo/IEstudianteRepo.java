@@ -4,9 +4,8 @@ import com.pweb.entity.Estudiante;
 
 public interface IEstudianteRepo {
 
-	public  Estudiante seleccionarCedula(String cedula);
+	public Estudiante seleccionarCedula(String cedula);
+
 	void crearEstudiante(Estudiante estudiante);
-	
-	
-	
+
 }

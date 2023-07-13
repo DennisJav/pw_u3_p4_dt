@@ -11,7 +11,7 @@ import jakarta.transaction.Transactional;
 
 @Repository
 @Transactional
-public class EstudianteRepo implements IEstudianteRepo{
+public class EstudianteRepo implements IEstudianteRepo {
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -19,20 +19,18 @@ public class EstudianteRepo implements IEstudianteRepo{
 	@Override
 	public Estudiante seleccionarCedula(String cedula) {
 		// TODO Auto-generated method stub
-		
-		TypedQuery<Estudiante> myQuery=this.entityManager.createQuery("Select e from Estudiante e Where e.cedula = :dato", Estudiante.class);
+
+		TypedQuery<Estudiante> myQuery = this.entityManager
+				.createQuery("Select e from Estudiante e Where e.cedula = :dato", Estudiante.class);
 		myQuery.setParameter("dato", cedula);
-		
+
 		return myQuery.getSingleResult();
 	}
 
 	@Override
 	public void crearEstudiante(Estudiante estudiante) {
 		// TODO Auto-generated method stub
-		
-		
+		this.entityManager.persist(estudiante);
 	}
-	
-	
-	
+
 }
