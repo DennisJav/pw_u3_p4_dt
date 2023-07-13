@@ -1,12 +1,13 @@
 package com.pweb.repo;
 
-import com.pweb.entity.Estudiante;
+import org.springframework.stereotype.Repository;
+
 import com.pweb.entity.Materia;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
-import org.springframework.stereotype.Repository;
 
 @Repository
 @Transactional

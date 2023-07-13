@@ -23,7 +23,7 @@ public class EstudianteControllerRestFul {
 	// get
 	@GetMapping(path = "/buscar")
 	public Estudiante consultarPorCedula() {
-		String cedula = "1721233465";
+		String cedula = "1721334686";
 		return this.estudianteService.estudianteConsultarCedula(cedula);
 		// http://localhost:8081/API/Matricula/estudiantes/buscar
 

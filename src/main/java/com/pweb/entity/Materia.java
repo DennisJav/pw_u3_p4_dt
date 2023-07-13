@@ -18,8 +18,37 @@ public class Materia {
     private String semestre;
     @Column(name = "mate_paralelo")
     private String paralelo;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public String getSemestre() {
+		return semestre;
+	}
+	public void setSemestre(String semestre) {
+		this.semestre = semestre;
+	}
+	public String getParalelo() {
+		return paralelo;
+	}
+	public void setParalelo(String paralelo) {
+		this.paralelo = paralelo;
+	}
+	@Override
+	public String toString() {
+		return "Materia [id=" + id + ", nombre=" + nombre + ", semestre=" + semestre + ", paralelo=" + paralelo + "]";
+	}
 
 
+    
 
 
 
