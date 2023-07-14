@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import com.pweb.entity.Estudiante;
 import com.pweb.repo.IEstudianteRepo;
 
+import java.util.List;
+
 @Service
 public class EstudianteService implements IEstudianteService {
 
@@ -22,6 +24,32 @@ public class EstudianteService implements IEstudianteService {
 	public void guardarEstudiante(Estudiante estudiante) {
 		// TODO Auto-generated method stub
 		this.estudianteRepo.crearEstudiante(estudiante);
+	}
+
+	@Override
+	public void actualizar(Estudiante estudiante) {
+
+		this.estudianteRepo.actualizarEstudiante(estudiante);
+	}
+
+	@Override
+	public void actualizarParcial(String cedulaActual, String cedulaNueva) {
+		this.estudianteRepo.actualizarParcial(cedulaActual,cedulaNueva);
+	}
+
+	@Override
+	public void eliminar(Integer id) {
+		this.estudianteRepo.borrar(id);
+	}
+
+	@Override
+	public List<Estudiante> buscarTodos() {
+		return this.estudianteRepo.buscarTodos();
+	}
+
+	@Override
+	public List<Estudiante> buscarTodosProvincia(String provincia) {
+		return this.estudianteRepo.buscarTodosProvincia(provincia);
 	}
 
 

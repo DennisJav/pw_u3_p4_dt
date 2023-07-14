@@ -1,5 +1,6 @@
 package com.pweb.repo;
 
+import jakarta.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import com.pweb.entity.Estudiante;
@@ -8,6 +9,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
+
+import java.util.List;
 
 @Repository
 @Transactional
@@ -31,6 +34,49 @@ public class EstudianteRepo implements IEstudianteRepo {
 	public void crearEstudiante(Estudiante estudiante) {
 		// TODO Auto-generated method stub
 		this.entityManager.persist(estudiante);
+	}
+
+	@Override
+	public void actualizarEstudiante(Estudiante estudiante) {
+		// TODO Auto-generated method stub
+		this.entityManager.merge(estudiante);
+	}
+
+	@Override
+	public void actualizarParcial(String cedulaActual , String cedulaNueva) {
+
+		Query myQuery=this.entityManager.createQuery("UPDATE Estudiante e SET e.cedula=:datoCedula WHERE e.cedula =:datoCondicion");
+		myQuery.setParameter("datoCedula", cedulaNueva);
+		myQuery.setParameter("datoCedula", cedulaActual);
+		myQuery.executeUpdate();
+
+
+	}
+
+	@Override
+	public void borrar(Integer id) {
+		this.entityManager.remove(this.buscarId(id));
+	}
+
+	@Override
+	public Estudiante buscarId(Integer id) {
+		return this.entityManager.find(Estudiante.class,id);
+	}
+
+	@Override
+	public List<Estudiante> buscarTodos() {
+		TypedQuery<Estudiante> myQuery = this.entityManager
+				.createQuery("Select e from Estudiante e ", Estudiante.class);
+
+		return myQuery.getResultList();
+	}
+
+	@Override
+	public List<Estudiante> buscarTodosProvincia(String provincia) {
+		TypedQuery<Estudiante> myQuery = this.entityManager
+				.createQuery("Select e from Estudiante e where e.provincia=:dato", Estudiante.class);
+		myQuery.setParameter("dato", provincia);
+		return myQuery.getResultList();
 	}
 
 }
