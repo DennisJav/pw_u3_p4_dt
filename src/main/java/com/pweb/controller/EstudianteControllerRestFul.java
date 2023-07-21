@@ -2,6 +2,8 @@ package com.pweb.controller;
 
 import com.pweb.service.EstudianteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.pweb.entity.Estudiante;
@@ -17,21 +19,21 @@ public class EstudianteControllerRestFul {
 	private IEstudianteService estudianteService;
 
 	// get
-	@GetMapping(path = "/buscar/{cedula}")
-	public Estudiante consultarPorCedula(@PathVariable String cedula) {
-		//String cedula = "1721334686";
-		return this.estudianteService.estudianteConsultarCedula(cedula);
-		// http://localhost:8080/API/Matricula/estudiantes/buscar
+	@GetMapping(path = "/{cedula}")
 
+	public ResponseEntity<Estudiante> consultarPorCedula(@PathVariable String cedula) {
+		//return this.estudianteService.estudianteConsultarCedula(cedula);
+		// http://localhost:8080/API/Matricula/estudiantes/buscar
+		return ResponseEntity.status(227).body(this.estudianteService.estudianteConsultarCedula(cedula));
 	}
 
-	@PostMapping(path = "/guardar")
+	@PostMapping
 	public void guardar(@RequestBody Estudiante estudiante) {
 		this.estudianteService.guardarEstudiante(estudiante);
 		// http://localhost:8080/API/Matricula/estudiantes/guardar
 	}
 
-	@PutMapping(path = "/actualizar/{identificador}")
+	@PutMapping(path = "/{identificador}")
 	public void actualizar(@RequestBody Estudiante estudiante,@PathVariable Integer identificador) {
 		//Integer ident = 1;
 		estudiante.setId(identificador);
@@ -39,7 +41,7 @@ public class EstudianteControllerRestFul {
 		// http://localhost:8080/API/Matricula/estudiantes/actualizar
 	}
 
-	@PatchMapping(path = "/actualizarParcial/{identificador}")
+	@PatchMapping(path = "/{identificador}")
 	public void actualizaParcial(@RequestBody Estudiante estudiante, @PathVariable String cedula) {
 		//Integer ident = 1;
 		//estudiante.setId(identificador);
@@ -51,21 +53,28 @@ public class EstudianteControllerRestFul {
 		//http://localhost:8080/API/Matricula/estudiantes/actualizarParcial
 	}
 
-	@DeleteMapping(path = "/borrar/{id}")
+	@DeleteMapping(path = "/{id}")
 	public void borrar(@PathVariable Integer id) {
 		//Integer eliminar = 1;
 		this.estudianteService.eliminar(id);
 		//http://localhost:8080/API/Matricula/estudiantes/borrar
 	}
 
-	@GetMapping(path = "/todos")
-	public List<Estudiante> buscarTodos(){
-		return this.estudianteService.buscarTodos();
+	@GetMapping
+	public ResponseEntity<List<Estudiante>> buscar(){
+		List<Estudiante> lista=this.estudianteService.buscarTodos();
+		//return this.estudianteService.buscarTodos();
+		HttpHeaders cabeceras=new HttpHeaders();
+		cabeceras.add("detalleMensaje","Ciudadano consultados exitosamente");
+		cabeceras.add("valorAPI","Incalculable");
+		return new ResponseEntity<>(lista,cabeceras,228);
 	}
 
-	@GetMapping(path = "/todosParametro")
-	public List<Estudiante> buscarTodosParametro(@RequestParam String provincia){
-		return this.estudianteService.buscarTodosProvincia(provincia);
-	}
+//	@GetMapping(path = "/{provincia}")
+//	public List<Estudiante> buscarTodosParametro(@RequestParam String provincia){
+//		return this.estudianteService.buscarTodosProvincia(provincia);
+//	}
+
+
 
 }

@@ -3,6 +3,9 @@ package com.pweb.controller;
 import com.pweb.entity.Horario;
 import com.pweb.service.IHorarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,8 +16,10 @@ public class HorarioControllerRestFul {
 
 
     @GetMapping(path = "/{codigo}")
-    public Horario consultarPorCodigo(@PathVariable String codigo) {
-        return this.horaService.consultarPorCodigo(codigo);
+    public ResponseEntity<Horario>  consultarPorCodigo(@PathVariable String codigo) {
+        //return this.horaService.consultarPorCodigo(codigo);
+
+        return ResponseEntity.status(HttpStatus.OK).body(this.horaService.consultarPorCodigo(codigo));
     }
 
     @PostMapping
