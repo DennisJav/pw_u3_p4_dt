@@ -18,4 +18,6 @@ public interface IEstudianteService {
 
 	List<Estudiante> buscarTodos();
 	List<Estudiante> buscarTodosProvincia(String provincia);
+
+	Estudiante insertarEstudianteDetalle(Estudiante estudiante);
 }

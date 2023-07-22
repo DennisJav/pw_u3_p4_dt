@@ -3,6 +3,8 @@ package com.pweb.controller;
 import com.pweb.service.EstudianteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,15 +21,38 @@ public class EstudianteControllerRestFul {
 	private IEstudianteService estudianteService;
 
 	// get
-	@GetMapping(path = "/{cedula}")
+//	@GetMapping(path = "/{cedula}")
+//
+//	public ResponseEntity<Estudiante> consultarPorCedula(@PathVariable String cedula) {
+//		//return this.estudianteService.estudianteConsultarCedula(cedula);
+//		// http://localhost:8080/API/Matricula/estudiantes/buscar
+//		return ResponseEntity.status(227).body(this.estudianteService.estudianteConsultarCedula(cedula));
+//	}
 
-	public ResponseEntity<Estudiante> consultarPorCedula(@PathVariable String cedula) {
-		//return this.estudianteService.estudianteConsultarCedula(cedula);
-		// http://localhost:8080/API/Matricula/estudiantes/buscar
-		return ResponseEntity.status(227).body(this.estudianteService.estudianteConsultarCedula(cedula));
+
+	//METODO PARA EJEMPLO
+//	@GetMapping(path = "/{cedula}", produces = "application/xml")
+//	@ResponseStatus(HttpStatus.OK) //esta logica se usa para algo fijo, que no ncesita mas otros cambios
+//	public Estudiante consultarPorCedulaStatus(@PathVariable String cedula) {
+//		return this.estudianteService.estudianteConsultarCedula(cedula);
+//	}
+
+	@GetMapping(path = "/{cedula}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(HttpStatus.OK) //esta logica se usa para algo fijo, que no ncesita mas otros cambios
+	public Estudiante consultarPorCedulaStatus(@PathVariable String cedula) {
+		return this.estudianteService.estudianteConsultarCedula(cedula);
+	}
+	//-------------------------------------
+
+	@PostMapping(consumes =MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(HttpStatus.OK)
+	public Estudiante insertarEstudianteDetalle(@RequestBody Estudiante estudiante){
+		return this.estudianteService.insertarEstudianteDetalle(estudiante);
 	}
 
-	@PostMapping
+
+	//-------------------------------------
+	@PostMapping(consumes = "application/xml")
 	public void guardar(@RequestBody Estudiante estudiante) {
 		this.estudianteService.guardarEstudiante(estudiante);
 		// http://localhost:8080/API/Matricula/estudiantes/guardar

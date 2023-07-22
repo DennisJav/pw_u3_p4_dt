@@ -79,4 +79,10 @@ public class EstudianteRepo implements IEstudianteRepo {
 		return myQuery.getResultList();
 	}
 
+	@Override
+	public Estudiante insertarEstudianteDetalle(Estudiante estudiante) {
+return null;
+	}
+
+
 }

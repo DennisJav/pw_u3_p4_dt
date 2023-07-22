@@ -52,5 +52,11 @@ public class EstudianteService implements IEstudianteService {
 		return this.estudianteRepo.buscarTodosProvincia(provincia);
 	}
 
+	@Override
+	public Estudiante insertarEstudianteDetalle(Estudiante estudiante) {
+		this.estudianteRepo.crearEstudiante(estudiante);
+		return estudiante;
+	}
+
 
 }
