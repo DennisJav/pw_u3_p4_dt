@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 
+@Table(name = "profesor")
+@Entity
 public class Profesor {
 
     @Id
