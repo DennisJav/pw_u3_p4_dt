@@ -1,5 +1,6 @@
 package com.pweb.service;
 
+import com.pweb.service.to.EstudianteTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -7,6 +8,7 @@ import com.pweb.entity.Estudiante;
 import com.pweb.repo.IEstudianteRepo;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EstudianteService implements IEstudianteService {
@@ -58,5 +60,28 @@ public class EstudianteService implements IEstudianteService {
 		return estudiante;
 	}
 
+	//------------------------------TALLER 33-----------------------------------
+	@Override
+	public List<EstudianteTO> buscarTodosTO() {
+		List<Estudiante> lista = estudianteRepo.buscarTodos();
+		List<EstudianteTO> listaTO = lista.stream().map( e ->{
+			EstudianteTO est = new EstudianteTO();
+			est.setId(e.getId());
+			est.setApellido(e.getApellido());
+			est.setCedula(e.getCedula());
+			est.setProvincia(e.getProvincia());
+			est.setNombre(e.getNombre());
+			return est;
+		}).collect(Collectors.toList());
+
+		return listaTO;
+	}
+
+//	private EstudianteTO convertir(Estudiante e){
+//
+//		EstudianteTO est = new EstudianteTO();
+//		est.setId(e.gettId());
+//		est.setApellido(e.getApellido());
+//	}
 
 }

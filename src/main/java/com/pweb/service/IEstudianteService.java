@@ -1,5 +1,6 @@
 package com.pweb.service;
 
+import com.pweb.service.to.EstudianteTO;
 import org.springframework.stereotype.Service;
 
 import com.pweb.entity.Estudiante;
@@ -20,4 +21,5 @@ public interface IEstudianteService {
 	List<Estudiante> buscarTodosProvincia(String provincia);
 
 	Estudiante insertarEstudianteDetalle(Estudiante estudiante);
+	public List<EstudianteTO> buscarTodosTO();
 }
