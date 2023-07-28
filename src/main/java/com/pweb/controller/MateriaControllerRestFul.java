@@ -2,12 +2,18 @@ package com.pweb.controller;
 
 import com.pweb.entity.Materia;
 import com.pweb.service.IMateriaService;
+import com.pweb.service.to.EstudianteTO;
+import com.pweb.service.to.MateriaTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.hateoas.Link;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/materias")
@@ -29,5 +35,30 @@ public class MateriaControllerRestFul {
       //http://localhost:8080/API/Matricula/materias/guardarMateria
         
     }
+
+    @GetMapping(path = "/hateoas", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<MateriaTO>> buscarMateriaHATEOAS() {
+
+//        MateriaTO mate = this.materiaService.buscarTodos();
+//        Link myLink = linkTo(methodOn(MateriaControllerRestFul.class).buscarPorID(mate.getId())).withRel("materias");
+//        mate.add(myLink);
+//        return new ResponseEntity<>(mate,null,200);
+        List<MateriaTO> lista = this.materiaService.buscarTodos();
+        for (MateriaTO estudiante : lista) {
+            //creacion del link automatico
+            Link myLink = linkTo(methodOn(MateriaControllerRestFul.class)
+                    .buscarPorID(estudiante.getId()))
+                    .withRel("materias"); //el withrel indica el nombre del que va a representar
+
+            estudiante.add(myLink);
+        }
+        return new ResponseEntity<>(lista, null, 200);
+    }
+
+    @GetMapping(path = "/{identificador}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<MateriaTO> buscarPorID(@PathVariable Integer id) {
+        return new ResponseEntity<>(this.materiaService.buscarMateriaTO(id),null,200);
+    }
+
 
 }

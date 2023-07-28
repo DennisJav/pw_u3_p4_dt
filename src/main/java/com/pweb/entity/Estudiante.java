@@ -1,14 +1,9 @@
 package com.pweb.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name="estudiante")
@@ -29,7 +24,20 @@ public class Estudiante {
 	private String provincia;
 	@Column(name = "estu_fecha_nacimiento")
 	private LocalDateTime fechaNacimiento;
-	
+
+	@OneToMany(mappedBy = "estudiante")
+	private List<Materia> materias;
+
+	//GET Y SET DE RELACIONES
+	public List<Materia> getMaterias() {
+		return materias;
+	}
+
+	public void setMaterias(List<Materia> materias) {
+		this.materias = materias;
+	}
+
+
 	//get y set
 	
 	public int getId() {
@@ -82,6 +90,7 @@ public class Estudiante {
 				", apellido='" + apellido + '\'' +
 				", provincia='" + provincia + '\'' +
 				", fechaNacimiento=" + fechaNacimiento +
+				", materias=" + materias +
 				'}';
 	}
 }

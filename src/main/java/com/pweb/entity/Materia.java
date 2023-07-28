@@ -1,6 +1,7 @@
 package com.pweb.entity;
 
 import jakarta.persistence.*;
+import jdk.jfr.MemoryAddress;
 
 import java.time.LocalDateTime;
 
@@ -14,10 +15,25 @@ public class Materia {
     private int id;
     @Column(name = "mate_nombre")
     private String nombre;
-    @Column(name = "mate_semestre")
-    private String semestre;
-    @Column(name = "mate_paralelo")
-    private String paralelo;
+
+
+	@Column(name = "mate_num_credito")
+	private Integer numeroCredito;
+
+
+	@ManyToOne
+	@JoinColumn(name = "mate_id_estudiante")
+	private Estudiante estudiante;
+
+	//metodos get y set relacion
+	public Estudiante getEstudiante() {
+		return estudiante;
+	}
+
+	public void setEstudiante(Estudiante estudiante) {
+		this.estudiante = estudiante;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -30,26 +46,22 @@ public class Materia {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public String getSemestre() {
-		return semestre;
+
+
+	public Integer getNumeroCredito() {
+		return numeroCredito;
 	}
-	public void setSemestre(String semestre) {
-		this.semestre = semestre;
+
+	public void setNumeroCredito(Integer numeroCredito) {
+		this.numeroCredito = numeroCredito;
 	}
-	public String getParalelo() {
-		return paralelo;
-	}
-	public void setParalelo(String paralelo) {
-		this.paralelo = paralelo;
-	}
+
 	@Override
 	public String toString() {
-		return "Materia [id=" + id + ", nombre=" + nombre + ", semestre=" + semestre + ", paralelo=" + paralelo + "]";
+		return "Materia{" +
+				"id=" + id +
+				", nombre='" + nombre + '\'' +
+				", numeroCredito=" + numeroCredito +
+				'}';
 	}
-
-
-    
-
-
-
 }

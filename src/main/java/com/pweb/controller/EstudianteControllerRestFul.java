@@ -1,5 +1,6 @@
 package com.pweb.controller;
 
+import com.pweb.service.IMateriaService;
 import com.pweb.service.to.EstudianteTO;
 import com.pweb.service.to.MateriaTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,8 @@ public class EstudianteControllerRestFul {
 
     @Autowired
     private IEstudianteService estudianteService;
+    @Autowired
+    private IMateriaService materiaService;
 
     // get
 //	@GetMapping(path = "/{cedula}")
@@ -109,19 +112,23 @@ public class EstudianteControllerRestFul {
     //------------------------------ TALLER 33
 
     //el path aqui no va solo es porque estoy colocando
-    @GetMapping(path = "/hateoas")
+    @GetMapping(path = "/hateoas", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<EstudianteTO>> buscarTodosHATEOAS() {
         List<EstudianteTO> lista = this.estudianteService.buscarTodosTO();
         for (EstudianteTO estudiante : lista) {
-            Link myLink = linkTo(methodOn(EstudianteControllerRestFul.class).buscarPorEstudiante(estudiante.getCedula())).withRel("materias");
-        	estudiante.add(myLink);
-		}
+            //creacion del link automatico
+            Link myLink = linkTo(methodOn(EstudianteControllerRestFul.class)
+                    .buscarPorEstudiante(estudiante.getCedula()))
+                    .withRel("materias"); //el withrel indica el nombre del que va a representar
+
+            estudiante.add(myLink);
+        }
         return new ResponseEntity<>(lista, null, 200);
     }
 
-    @GetMapping(path = "/{cedula}/materias")
+    @GetMapping(path = "/{cedula}/materias", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<MateriaTO>> buscarPorEstudiante(@PathVariable String cedula) {
-        return null;
+        return new ResponseEntity<>(this.materiaService.buscarPorCedulaEstudiante(cedula),null,200);
     }
 
 
