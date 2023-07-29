@@ -21,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/estudiantes")
+@CrossOrigin
 public class EstudianteControllerRestFul {
 
     @Autowired
@@ -119,7 +120,7 @@ public class EstudianteControllerRestFul {
             //creacion del link automatico
             Link myLink = linkTo(methodOn(EstudianteControllerRestFul.class)
                     .buscarPorEstudiante(estudiante.getCedula()))
-                    .withRel("materias"); //el withrel indica el nombre del que va a representar
+                    .withSelfRel(); //el withrel indica el nombre del que va a representar
 
             estudiante.add(myLink);
         }
@@ -128,7 +129,17 @@ public class EstudianteControllerRestFul {
 
     @GetMapping(path = "/{cedula}/materias", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<MateriaTO>> buscarPorEstudiante(@PathVariable String cedula) {
-        return new ResponseEntity<>(this.materiaService.buscarPorCedulaEstudiante(cedula),null,200);
+
+        List<MateriaTO> lista = this.materiaService.buscarPorCedulaEstudiante(cedula);
+        System.out.println("------------------------------------");
+        lista.forEach(System.out::println);
+        System.out.println("------------------------");
+        for (MateriaTO mat:lista){
+//            Link myLink = linkTo(methodOn(MateriaControllerRestFul.class)
+//                    .buscarPorID(mat.getId())).withSelfRel();
+//            mat.add(myLink);
+        }
+        return new ResponseEntity<>(lista,null,200);
     }
 
 

@@ -3,10 +3,12 @@ package com.pweb.entity;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name="estudiante")
+@JsonIgnoreProperties(value = "materias")
 public class Estudiante {
 
 	@Id

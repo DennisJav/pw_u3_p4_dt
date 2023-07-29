@@ -41,14 +41,11 @@ public class MateriaService implements IMateriaService {
 
     @Override
     public MateriaTO buscarMateriaTO(Integer id) {
-
         Materia m = this.materiaRepo.buscarMateria(id);
-
         MateriaTO mate = new MateriaTO();
         mate.setId(m.getId());
         mate.setNombre(m.getNombre());
         mate.setNumeroCredito(m.getNumeroCredito());
-
         return mate;
     }
 

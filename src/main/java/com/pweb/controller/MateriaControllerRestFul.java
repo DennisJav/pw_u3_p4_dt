@@ -36,24 +36,19 @@ public class MateriaControllerRestFul {
         
     }
 
-    @GetMapping(path = "/hateoas", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<MateriaTO>> buscarMateriaHATEOAS() {
-
-//        MateriaTO mate = this.materiaService.buscarTodos();
-//        Link myLink = linkTo(methodOn(MateriaControllerRestFul.class).buscarPorID(mate.getId())).withRel("materias");
-//        mate.add(myLink);
-//        return new ResponseEntity<>(mate,null,200);
-        List<MateriaTO> lista = this.materiaService.buscarTodos();
-        for (MateriaTO estudiante : lista) {
-            //creacion del link automatico
-            Link myLink = linkTo(methodOn(MateriaControllerRestFul.class)
-                    .buscarPorID(estudiante.getId()))
-                    .withRel("materias"); //el withrel indica el nombre del que va a representar
-
-            estudiante.add(myLink);
-        }
-        return new ResponseEntity<>(lista, null, 200);
-    }
+//    @GetMapping( produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<List<MateriaTO>> buscarMateriaHATEOAS() {
+//
+//        List<MateriaTO> lista = this.materiaService.buscarTodos();
+//        for (MateriaTO materia : lista) {
+//            //creacion del link automatico
+//            Link myLink = linkTo(methodOn(MateriaControllerRestFul.class)
+//                    .buscarPorID(materia.getId()))
+//                    .withRel("materias"); //el withrel indica el nombre del que va a representar
+//            materia.add(myLink);
+//        }
+//        return new ResponseEntity<>(lista, null, 200);
+//    }
 
     @GetMapping(path = "/{identificador}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<MateriaTO> buscarPorID(@PathVariable Integer id) {
