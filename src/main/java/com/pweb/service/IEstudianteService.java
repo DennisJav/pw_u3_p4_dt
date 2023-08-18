@@ -13,6 +13,7 @@ public interface IEstudianteService {
 	void guardarEstudiante(Estudiante estudiante);
 	void actualizar(Estudiante estudiante);
 
+	Estudiante buscarId(Integer id);
 	void actualizarParcial(String cedulaActual, String cedulaNueva);
 
 	void eliminar(Integer id);
