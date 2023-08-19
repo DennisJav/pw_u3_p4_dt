@@ -5,10 +5,10 @@ import org.springframework.stereotype.Repository;
 
 import com.pweb.entity.Materia;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
-import jakarta.transaction.Transactional;
+
+import javax.persistence.*;
+import javax.transaction.Transactional;
+
 
 import java.util.List;
 

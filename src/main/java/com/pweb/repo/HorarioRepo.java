@@ -1,11 +1,10 @@
 package com.pweb.repo;
 
 import com.pweb.entity.Horario;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.Query;
-import jakarta.persistence.TypedQuery;
-import jakarta.transaction.Transactional;
+
+import javax.persistence.*;
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Repository;
 
 @Repository

@@ -18,10 +18,13 @@ public class AuthEntryPointJWT implements AuthenticationEntryPoint {
     private static final Logger LOG = LoggerFactory.getLogger(AuthEntryPointJWT.class);
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
-
                          AuthenticationException authException) throws IOException, ServletException {
         //aqui es donde se programa lo que queremo que retorne cuando hay un error
         LOG.error("Usuario No Autorizado {}",authException.getMessage());
         LOG.error(request.getServletPath());
+
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+
+
     }
 }

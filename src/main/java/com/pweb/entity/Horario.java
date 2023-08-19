@@ -1,6 +1,7 @@
 package com.pweb.entity;
 
-import jakarta.persistence.*;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "horario")

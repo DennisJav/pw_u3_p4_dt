@@ -1,6 +1,7 @@
 package com.pweb.entity;
 
-import jakarta.persistence.*;
+
+import javax.persistence.*;
 import jdk.jfr.MemoryAddress;
 
 import java.time.LocalDateTime;

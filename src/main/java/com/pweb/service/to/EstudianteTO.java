@@ -1,6 +1,6 @@
 package com.pweb.service.to;
 
-import jakarta.persistence.Column;
+
 import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
