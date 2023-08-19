@@ -18,6 +18,7 @@ import com.pweb.entity.Estudiante;
 import com.pweb.service.IEstudianteService;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("/estudiantes")
@@ -61,21 +62,22 @@ public class EstudianteControllerRestFul {
 
 
     //-------------------------------------
-    @PostMapping(consumes = "application/xml")
+    @PostMapping
     public void guardar(@RequestBody Estudiante estudiante) {
+
         this.estudianteService.guardarEstudiante(estudiante);
         // http://localhost:8080/API/Matricula/estudiantes/guardar
     }
 
-    @PutMapping(path = "/{identificador}")
+    @PutMapping(path = "/{identificador}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void actualizar(@RequestBody Estudiante estudiante, @PathVariable Integer identificador) {
         //Integer ident = 1;
         estudiante.setId(identificador);
         this.estudianteService.actualizar(estudiante);
-        // http://localhost:8080/API/Matricula/estudiantes/actualizar
+        // http://localhost:8080/API/v1.0/Matricula/estudiantes/actualizar
     }
 
-    @PatchMapping(path = "/{identificador}")
+    @PatchMapping(path = "/{identificador}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void actualizaParcial(@RequestBody Estudiante estudiante, @PathVariable String cedula) {
         //Integer ident = 1;
         //estudiante.setId(identificador);
@@ -88,10 +90,13 @@ public class EstudianteControllerRestFul {
     }
 
     @DeleteMapping(path = "/{id}")
-    public void borrar(@PathVariable Integer id) {
+    public ResponseEntity<Estudiante> borrar(@PathVariable Integer id) {
         //Integer eliminar = 1;
+        Estudiante e = this.estudianteService.buscarId(id);
+
         this.estudianteService.eliminar(id);
         //http://localhost:8080/API/Matricula/estudiantes/borrar
+        return new ResponseEntity<>(e,null,200);
     }
 
     @GetMapping

@@ -8,6 +8,7 @@ import com.pweb.entity.Estudiante;
 import com.pweb.repo.IEstudianteRepo;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,6 +26,11 @@ public class EstudianteService implements IEstudianteService {
 	@Override
 	public void guardarEstudiante(Estudiante estudiante) {
 		// TODO Auto-generated method stub
+		try {
+			TimeUnit.SECONDS.sleep(20);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		this.estudianteRepo.crearEstudiante(estudiante);
 	}
 
@@ -32,6 +38,11 @@ public class EstudianteService implements IEstudianteService {
 	public void actualizar(Estudiante estudiante) {
 
 		this.estudianteRepo.actualizarEstudiante(estudiante);
+	}
+
+	@Override
+	public Estudiante buscarId(Integer id) {
+		return this.estudianteRepo.buscarId(id);
 	}
 
 	@Override
